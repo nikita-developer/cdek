@@ -1,24 +1,19 @@
 <template>
   <div class="login">
-    <form class="form">
-      <label for="" class="form__label">
+    <form @submit.prevent="submit" class="form">
+      <h3 class="form__title">Войти на сайт</h3>
+      <label class="form__label">
         <span class="form__placeholder">Введите почту</span>
-        <input type="text" class="form__field">
+        <input v-model="email" type="text" class="form__field">
       </label>
-      <label for="" class="form__label">
+      <label class="form__label">
         <span class="form__placeholder">Введите пароль</span>
-        <input type="text" class="form__field">
+        <input v-model="password" type="text" class="form__field">
       </label>
-      <button class="form__btn">Войти</button>
-      <NuxtLink class="form__link" to="/">Регистрация</NuxtLink>
+      <button class="form__btn">Отправить</button>
+      <NuxtLink class="form__link" to="/registration">Регистрация</NuxtLink>
     </form>
   </div>
-<!--  <form @submit.prevent="submit">-->
-<!--    <input v-model="email" type="text">-->
-<!--    <input v-model="password" type="text">-->
-<!--    <button>отправить</button>-->
-<!--    <p @click="logout">Выйти</p>-->
-<!--  </form>-->
 </template>
 
 <script setup>
@@ -50,6 +45,7 @@
   const logout = async () => {
     const settings = {
       method: 'POST',
+      credentials: "include",
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -75,16 +71,22 @@
     width: 100%;
     padding: 15px;
     display: flex;
+    min-width: 280px;
   }
 
   .form {
     display: flex;
     flex-direction: column;
     margin: auto;
+    min-width: 280px;
+
+    &__title {
+      margin-bottom: 15px;
+    }
 
     &__field {
       display: block;
-      width: 280px;
+      width: 100%;
       height: 40px;
       background-color: hsl(0deg 0% 0% / 4%);
       padding: 5px 10px;
@@ -107,7 +109,6 @@
 
     &__link {
       margin-top: 10px;
-      text-align: center;
     }
   }
 </style>

@@ -1,6 +1,5 @@
 <template>
   <footer class="footer">
-    <Nav/>
   </footer>
 </template>
 

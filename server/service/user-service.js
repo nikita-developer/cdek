@@ -8,7 +8,7 @@ const ApiError = require('../exceptions/api-error')
 
 class UserService {
     async registration(email, password) {
-        // поиск пользователя в базу
+        // поиск пользователя в базе
         const candidate = await UserModel.findOne({email})
 
         // проверка на существования в базе пользователя
@@ -52,7 +52,6 @@ class UserService {
     async login(email, password) {
         // поиск пользователя в базу
         const user = await UserModel.findOne({email})
-
         // проверка на существования в базе пользователя
         if(!user) {
             throw ApiError.BadRequest(`Пользователь с почтовым адресом ${email} не найден`)
