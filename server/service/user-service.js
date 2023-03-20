@@ -32,15 +32,30 @@ class UserService {
         return {...tokens, user: userDto}
     }
 
+    async newActivateLink(email) {
+        // поиск пользователя по ссылке
+        const user = await UserModel.findOne({email})
+        // проверка на существование пользователя
+        if(!user) {
+            throw ApiError.BadRequest('Пользователя нет в базе')
+        }
+        // получаем рандомную строку для генерации ссылки активации аккаунта
+        const activationLink = uuid.v4()
+        // присваиваем новую ссылку
+        user.activationLink = activationLink
+        // сохраняем пользователя
+        await user.save()
+        // отправляем письмо для активации
+        await mailService.sendActivationMail(email, `${process.env.API_URL}api/activate/${activationLink}`)
+    }
+
     async activate(activationLink) {
         // поиск пользователя по ссылке
         const user = await UserModel.findOne({activationLink})
-
         // проверка на существование пользователя
         if(!user) {
             throw ApiError.BadRequest('Неккоректная ссылка активации')
         }
-
         // меняем состояние акккаунта
         user.isActivated = true
         // сохраняем

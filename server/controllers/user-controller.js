@@ -1,6 +1,9 @@
 const userService = require('../service/user-service')
 const {validationResult} = require('express-validator')
 const ApiError = require('../exceptions/api-error')
+const uuid = require("uuid");
+const UserModel = require("../models/user-model");
+const mailService = require("../service/mail-service");
 
 class UserController {
     async registration(req, res, next) {
@@ -45,6 +48,17 @@ class UserController {
             // удаляем куку с рефрештокеном
             res.clearCookie('refreshToken')
             return res.json(token)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+    async newActivateLink(req, res, next) {
+        try {
+            // получаем email и ссылку
+            const {email} = req.body
+            // вызываем функцию и передаем ей email и ссылку
+            await userService.newActivateLink(email)
         } catch (e) {
             next(e)
         }
