@@ -10,12 +10,10 @@ class UserService {
     async registration(email, password) {
         // поиск пользователя в базе
         const candidate = await UserModel.findOne({email})
-
-        // проверка на существования в базе пользователя
+        // проверка на существование в базе пользователя
         if(candidate) {
             throw ApiError.BadRequest(`Пользователь с почтовым адресом ${email} уже существует`)
         }
-
         // хешируем пароль
         const hashPassword = await bcrypt.hash(password, 3)
         // получаем рандомную строку для генерации ссылки активации аккаунта

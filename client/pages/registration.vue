@@ -17,32 +17,12 @@
 </template>
 
 <script setup>
+import {useUser} from "../composables/state";
+
 const email = ref('')
 const password = ref('')
 
 const submit = async () => {
-  const settings = {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: unref(email),
-      password: unref(password),
-    })
-  }
-  try {
-    const fetchResponse = await fetch('http://localhost:5000/api/registration', settings)
-    const data = await fetchResponse.json();
-    localStorage.setItem('token', data.token)
-    return console.log(data)
-  } catch (e) {
-    return e
-  }
-}
-
-const logout = async () => {
   const settings = {
     method: 'POST',
     credentials: "include",
@@ -58,8 +38,9 @@ const logout = async () => {
   try {
     const fetchResponse = await fetch('http://localhost:5000/api/registration', settings)
     const data = await fetchResponse.json();
-    localStorage.setItem('token', data.token)
-    return console.log(data)
+    if(fetchResponse.status === 200) {
+      navigateTo('/login')
+    }
   } catch (e) {
     return e
   }

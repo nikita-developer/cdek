@@ -23,28 +23,6 @@
   const submit = async () => {
     const settings = {
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: unref(email),
-        password: unref(password),
-      })
-    }
-    try {
-      const fetchResponse = await fetch('http://localhost:5000/api/login', settings)
-      const data = await fetchResponse.json();
-      localStorage.setItem('token', data.token)
-      return console.log(data)
-    } catch (e) {
-      return e
-    }
-  }
-
-  const logout = async () => {
-    const settings = {
-      method: 'POST',
       credentials: "include",
       headers: {
         Accept: 'application/json',
@@ -58,8 +36,12 @@
     try {
       const fetchResponse = await fetch('http://localhost:5000/api/login', settings)
       const data = await fetchResponse.json();
-      localStorage.setItem('token', data.token)
-      return console.log(data)
+      if(fetchResponse.status === 200) {
+        isAuth().value = true
+        localStorage.setItem('token', data.accessToken)
+        useUser().value = data.user
+        navigateTo('/')
+      }
     } catch (e) {
       return e
     }

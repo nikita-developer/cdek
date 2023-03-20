@@ -1,10 +1,7 @@
-import {useAuth} from "~/composables/useAuth";
+export default defineNuxtRouteMiddleware(async (to, from) => {
+    await useRefresh()
+    let auth = isAuth().value
 
-export default defineNuxtRouteMiddleware((to, from) => {
-    const isAuth = useAuth()
-    console.log(isAuth)
-
-    // if(isAuth && to.path !== '/login') {
-    //     return navigateTo('/login')
-    // }
+    if(!auth && to.path !== '/registration' && to.path !== '/login') return navigateTo('/login')
+    if(auth && to.path === '/registration' || auth && to.path === '/login') return navigateTo('/')
 })
