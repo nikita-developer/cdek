@@ -53,14 +53,13 @@
     width: 100%;
     padding: 15px;
     display: flex;
-    min-width: 280px;
   }
 
   .form {
     display: flex;
     flex-direction: column;
     margin: auto;
-    min-width: 280px;
+    width: 280px;
 
     &__title {
       margin-bottom: 15px;
