@@ -32,7 +32,7 @@ class UserService {
         return {...tokens, user: userDto}
     }
 
-    async newActivateLink(email) {
+    async sendLinkActive(email) {
         // поиск пользователя по ссылке
         const user = await UserModel.findOne({email})
         // проверка на существование пользователя
@@ -41,7 +41,7 @@ class UserService {
         }
         // получаем рандомную строку для генерации ссылки активации аккаунта
         const activationLink = uuid.v4()
-        // присваиваем новую ссылку
+        // присваиваем ссылку
         user.activationLink = activationLink
         // сохраняем пользователя
         await user.save()

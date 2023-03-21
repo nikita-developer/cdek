@@ -53,12 +53,12 @@ class UserController {
         }
     }
 
-    async newActivateLink(req, res, next) {
+    async sendLinkActive(req, res, next) {
         try {
-            // получаем email и ссылку
+            // получаем email
             const {email} = req.body
-            // вызываем функцию и передаем ей email и ссылку
-            await userService.newActivateLink(email)
+            // вызываем функцию и передаем ей email
+            await userService.sendLinkActive(email)
         } catch (e) {
             next(e)
         }

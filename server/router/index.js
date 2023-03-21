@@ -11,7 +11,7 @@ router.post('/registration',
 router.post('/login', userController.login)
 router.post('/logout', userController.logout)
 router.get('/activate/:link', userController.activate)
-router.get('/newActivate/:link', userController.newActivateLink)
+router.post('/send-link-active', userController.sendLinkActive)
 router.get('/refresh', userController.refresh)
 router.get('/users', authMiddleware, userController.getUsers)
 
