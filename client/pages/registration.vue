@@ -5,12 +5,12 @@
       <label class="form__label">
         <span class="form__placeholder">Введите почту</span>
         <input v-model="email" type="text" class="form__field">
-        <p class="form__message text-danger" v-if="messages.email"><small>{{messages.email}}</small></p>
+        <p class="form__message text-danger" v-if="errorsMessages.email"><small>{{errorsMessages.email}}</small></p>
       </label>
       <label class="form__label">
         <span class="form__placeholder">Введите пароль</span>
         <input v-model="password" type="text" class="form__field">
-        <p class="form__message text-danger" v-if="messages.password"><small>{{messages.password}}</small></p>
+        <p class="form__message text-danger" v-if="errorsMessages.password"><small>{{errorsMessages.password}}</small></p>
       </label>
       <button class="form__btn">Отправить</button>
       <NuxtLink class="form__link" to="/login">Войти</NuxtLink>
@@ -19,13 +19,11 @@
 </template>
 
 <script setup>
- const email = ref('')
- const password = ref('')
+import {errorsForm} from "../utils/form";
 
- const messages = ref({
-   email: '',
-   password: '',
- })
+const email = ref('')
+const password = ref('')
+let errorsMessages = ref({})
 
 const submit = async () => {
   const settings = {
@@ -45,7 +43,8 @@ const submit = async () => {
     if(fetchResponse.status === 200) {
       navigateTo('/login')
     }
-    console.log(data)
+    errorsMessages.value = {}
+    errorsMessages.value = errorsForm(data.errors)
   } catch (e) {
     return e
   }
