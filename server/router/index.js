@@ -8,10 +8,7 @@ router.post('/registration',
     body('email').isEmail().withMessage('Введите корректный email'),
     body('password').isLength({min: 8, max: 32}).withMessage('Пароль не должен быть меньше 8 и больше 32 символов'),
     userController.registration)
-router.post('/login',
-    body('email').isEmail().withMessage('Введите корректный email'),
-    body('password').isLength({min: 8, max: 32}).withMessage('Пароль не должен быть меньше 8 и больше 32 символов'),
-    userController.login)
+router.post('/login', userController.login)
 router.post('/logout', userController.logout)
 router.get('/activate/:link', userController.activate)
 router.post('/send-link-active', userController.sendLinkActive)

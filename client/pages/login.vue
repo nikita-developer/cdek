@@ -5,10 +5,12 @@
       <label class="form__label">
         <span class="form__placeholder">Введите почту</span>
         <input v-model="email" type="text" class="form__field">
+        <p class="form__message text-danger" v-if="errorsMessages.login"><small>{{errorsMessages.login}}</small></p>
       </label>
       <label class="form__label">
         <span class="form__placeholder">Введите пароль</span>
         <input v-model="password" type="text" class="form__field">
+        <p class="form__message text-danger" v-if="errorsMessages.password"><small>{{errorsMessages.password}}</small></p>
       </label>
       <button class="form__btn">Отправить</button>
       <NuxtLink class="form__link" to="/registration">Регистрация</NuxtLink>
@@ -17,8 +19,11 @@
 </template>
 
 <script setup>
+  import {errorsForm} from "../utils/form";
+
   const email = ref('')
   const password = ref('')
+  let errorsMessages = ref({})
 
   const submit = async () => {
     const settings = {
@@ -41,6 +46,10 @@
         localStorage.setItem('token', data.accessToken)
         useUser().value = data.user
         navigateTo('/')
+        errorsMessages.value = {}
+      } else {
+        errorsMessages.value = {}
+        errorsMessages.value = errorsForm(data.errors)
       }
     } catch (e) {
       return e

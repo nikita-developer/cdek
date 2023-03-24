@@ -67,13 +67,13 @@ class UserService {
         const user = await UserModel.findOne({email})
         // проверка на существования в базе пользователя
         if(!user) {
-            throw ApiError.BadRequest(`Пользователь с почтовым адресом ${email} не найден`)
+            throw ApiError.BadRequest(`Пользователь с почтовым адресом ${email} не найден`,[{param: 'login', msg: `Пользователь с почтовым адресом ${email} не найден`}])
         }
         // функция compare принимает пароль который ввели и хеширует его, затем вторым параметром передаем пароль с базы в хешированном виде и сравнивает их
         const isPassEquals = await bcrypt.compare(password, user.password)
         // если пароль не равны
         if(!isPassEquals) {
-            throw ApiError.BadRequest('Неверный пароль')
+            throw ApiError.BadRequest('Неверный пароль', [{param: 'password', msg: 'Неверный пароль'}])
         }
         // фильтруем объект и отдаем только те данные которые прописаны в dto
         const userDto = new UserDto(user)
