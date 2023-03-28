@@ -1,6 +1,6 @@
 <template>
-  <nav class="nav">
-    <div class="nav-burger">
+  <nav class="nav nav--mobile" :class="{open: isOpen}">
+    <div class="nav-burger" @click="isOpen = !isOpen">
       <span></span><span></span><span></span>
     </div>
     <ul class="nav-list nav__list">
@@ -22,68 +22,157 @@
       <li class="nav-list__item" v-if="auth">
         <button class="nav-list__link" @click="logout">Выйти</button>
       </li>
+      <li>
+        <div class="parent" v-click-outside="myFun">sdddddddd <p>sdfdfgfsdgf</p></div>
+      </li>
     </ul>
   </nav>
 </template>
 
 <script setup>
-  let auth = isAuth()
+let auth = isAuth()
+let isOpen = ref(false)
 
-  const logout = async () => {
-    const settings = {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      }
-    }
-    try {
-      const fetchResponse = await fetch('http://localhost:5000/api/logout', settings)
-      const data = await fetchResponse.json();
-      localStorage.removeItem('token')
-      isAuth().value = false
-      navigateTo('/login')
-    } catch (e) {
-      return e
+const myFun = () => {
+  console.log('123234324')
+}
+
+const logout = async () => {
+  const settings = {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     }
   }
+  try {
+    const fetchResponse = await fetch('http://localhost:5000/api/logout', settings)
+    const data = await fetchResponse.json();
+    localStorage.removeItem('token')
+    isAuth().value = false
+    navigateTo('/login')
+  } catch (e) {
+    return e
+  }
+}
 </script>
 
 <style scoped lang="scss">
-  .nav {
-    display: flex;
-    align-items: center;
-    padding: 10px 15px;
-    background-color: var(--primary);
+.nav {
+  display: flex;
+  align-items: center;
 
-    &__list {
-     margin-left: auto;
-    }
-  }
-
-  .nav-list {
-    display: flex;
+  &__list {
+    margin-left: auto;
     margin-bottom: 0;
+  }
 
-    &__item {
-      & + & {
-        margin-left: 10px;
+  &.nav--mobile {
+    &.open {
+      .nav-list {
+        transform: translateX(0);
+      }
+
+      .nav-burger {
+        span:first-child {
+          transform: translate(10px, -3px) rotate(45deg);
+          width: 10px;
+        }
+
+        span:last-child {
+          transform: translate(10px, 3px) rotate(-45deg);
+          width: 10px;
+        }
       }
     }
 
-    &__link {
-      display: inline-block;
-      color: #ffffff;
-      padding: 5px 10px;
-      border-radius: 5px;
-      text-decoration: none;
-      transition: .3s;
+    .nav-list {
+      position: fixed;
+      top: 50px;
+      right: 0;
+      bottom: 0;
+      width: 280px;
+      flex-direction: column;
+      background-color: var(--primary);
+      transform: translateX(100%);
+      transition: transform .3s ease;
 
-      &:hover {
+      &__item {
+        & + .nav-list__item {
+          margin-left: 0;
+        }
+      }
+
+      &__link {
+        background-color: transparent;
+        display: block;
+        width: 100%;
+        border-top: 1px solid rgb(255 255 255 / 23%);
+        border-radius: 0;
+        text-align: right;
+        
+        &:hover {
+          background-color: #0075f3;
+          color: #ffffff;
+        }
+      }
+    }
+
+    .nav-burger {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      cursor: pointer;
+
+      span {
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        width: 20px;
+        height: 3px;
+        border-radius: 5px;
         background-color: #fff;
-        color: var(--primary);
+        transition: .3s;
+      }
+
+      span:first-child {
+        transform: translateY(-7px);
+      }
+
+      span:last-child {
+        transform: translateY(7px);
       }
     }
   }
+}
+
+.nav-list {
+  display: flex;
+
+  &__item {
+    & + & {
+      margin-left: 10px;
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: .3s;
+
+    &:hover {
+      background-color: #fff;
+      color: var(--primary);
+    }
+  }
+}
+
+.nav-burger {
+  display: none;
+}
 </style>
