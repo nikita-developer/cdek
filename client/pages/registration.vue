@@ -12,7 +12,7 @@
         <input v-model="password" type="text" class="form__field">
         <p class="form__message text-danger" v-if="errorsMessages.password"><small>{{errorsMessages.password}}</small></p>
       </label>
-      <button class="form__btn">Отправить</button>
+      <button class="form__btn btn" :disabled="!loadForm">Отправить</button>
       <NuxtLink class="form__link" to="/login">Войти</NuxtLink>
     </form>
   </div>
@@ -24,30 +24,37 @@ import {errorsForm} from "../utils/form";
 const email = ref('')
 const password = ref('')
 let errorsMessages = ref({})
+let loadForm = ref(true)
 
 const submit = async () => {
-  const settings = {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: unref(email),
-      password: unref(password),
-    })
-  }
-  try {
-    const fetchResponse = await fetch('http://localhost:5000/api/registration', settings)
-    const data = await fetchResponse.json();
-    console.log(data)
-    if(fetchResponse.status === 200) {
-      navigateTo('/login')
+  if(loadForm) {
+    loadForm.value = false
+    const settings = {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: unref(email),
+        password: unref(password),
+      })
     }
-    errorsMessages.value = {}
-    errorsMessages.value = errorsForm(data.errors)
-  } catch (e) {
-    return e
+    try {
+      const fetchResponse = await fetch('http://localhost:5000/api/registration', settings)
+      const data = await fetchResponse.json();
+
+      console.log(fetchResponse.status, data)
+      if(fetchResponse.status === 200) {
+        navigateTo('/login')
+      }
+      errorsMessages.value = {}
+      errorsMessages.value = errorsForm(data.errors)
+
+      loadForm.value = true
+    } catch (e) {
+      return e
+    }
   }
 }
 </script>

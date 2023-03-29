@@ -2,7 +2,11 @@
   <div class="page">
     <Header class="page__header"/>
     <Main class="page__main">
-      <slot></slot>
+      <div class="container">
+        <div class="row mt-4 mb-4">
+          <slot></slot>
+        </div>
+      </div>
     </Main>
     <Footer class="page__footer"/>
   </div>

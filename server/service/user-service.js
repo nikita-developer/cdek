@@ -21,7 +21,7 @@ class UserService {
         // создаем пользователя
         const user = await UserModel.create({email, password: hashPassword, activationLink})
         // отправляем письмо для активации
-        await mailService.sendActivationMail(email, `${process.env.API_URL}api/activate/${activationLink}`)
+        // await mailService.sendActivationMail(email, `${process.env.API_URL}api/activate/${activationLink}`)
         // фильтруем объект и отдаем только те данные которые прописаны в dto
         const userDto = new UserDto(user)
         // генерируем токены

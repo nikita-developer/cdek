@@ -1,9 +1,6 @@
 const userService = require('../service/user-service')
 const {validationResult} = require('express-validator')
 const ApiError = require('../exceptions/api-error')
-const uuid = require("uuid");
-const UserModel = require("../models/user-model");
-const mailService = require("../service/mail-service");
 
 class UserController {
     async registration(req, res, next) {

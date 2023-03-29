@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <div class="logo">Конюшня</div>
+    <div class="logo">Cdek</div>
     <Nav/>
   </header>
 </template>
@@ -21,5 +21,6 @@
     color: #ffffff;
     font-weight: 700;
     text-transform: uppercase;
+    font-style: italic;
   }
 </style>
