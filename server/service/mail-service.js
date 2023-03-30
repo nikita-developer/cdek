@@ -28,6 +28,36 @@ class MailService {
                 `
         })
     }
+
+    async sendEmployed(fio, inn, birth, phone, email, passnumber, passdata, passwho, adres, site, bank, numberschet, korschet, bik, comment) {
+        await this.transporter.sendMail({
+            from: process.env.SMTP_USER,
+            to: process.env.DOGOVOR_MAIL,
+            subject: 'Заявка от самозанятого',
+            text: '',
+            html:
+                `
+                    <div>
+                        <h1>Заявка самозанятого</h1>
+                        <p>${fio}</p>
+                        <p>${inn}</p>
+                        <p>${birth}</p>
+                        <p>${phone}</p>
+                        <p>${email}</p>
+                        <p>${passnumber}</p>
+                        <p>${passdata}</p>
+                        <p>${passwho}</p>
+                        <p>${adres}</p>
+                        <p>${site}</p>
+                        <p>${bank}</p>
+                        <p>${numberschet}</p>
+                        <p>${korschet}</p>
+                        <p>${bik}</p>
+                        <p>${comment}</p>
+                    </div>
+                `
+        })
+    }
 }
 
 module.exports = new MailService()

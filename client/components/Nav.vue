@@ -60,6 +60,7 @@ const logout = async () => {
 .nav {
   display: flex;
   align-items: center;
+  z-index: 1;
 
   &__list {
     margin-left: auto;
