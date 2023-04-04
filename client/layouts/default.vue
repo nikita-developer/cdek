@@ -3,7 +3,7 @@
     <Header class="page__header"/>
     <Main class="page__main">
       <div class="container d-flex">
-        <div class="row mt-4 mb-4 w-100">
+        <div class="mt-4 mb-4 w-100">
           <slot></slot>
         </div>
       </div>

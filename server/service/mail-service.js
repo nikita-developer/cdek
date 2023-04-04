@@ -30,13 +30,14 @@ class MailService {
     }
 
     async sendEmployed(fio, inn, birth, phone, email, passnumber, passdata, passwho, adres, site, bank, numberschet, korschet, bik, comment) {
-        await this.transporter.sendMail({
-            from: process.env.SMTP_USER,
-            to: process.env.DOGOVOR_MAIL,
-            subject: 'Заявка от самозанятого',
-            text: '',
-            html:
-                `
+        try {
+            await this.transporter.sendMail({
+                from: process.env.SMTP_USER,
+                to: process.env.DOGOVOR_MAIL,
+                subject: 'Заявка от самозанятого',
+                text: '',
+                html:
+                    `
                     <div>
                         <h1>Заявка самозанятого</h1>
                         <p>${fio}</p>
@@ -56,7 +57,11 @@ class MailService {
                         <p>${comment}</p>
                     </div>
                 `
-        })
+            })
+            return 'Заявка отправлена'
+        } catch (e) {
+            return 'Произошла ошибка'
+        }
     }
 }
 

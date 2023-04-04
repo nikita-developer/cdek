@@ -12,7 +12,7 @@ class UserService {
         const candidate = await UserModel.findOne({email})
         // проверка на существование в базе пользователя
         if(candidate) {
-            throw ApiError.BadRequest(`Пользователь с почтовым адресом ${email} уже существует`)
+            throw ApiError.BadRequest(`Пользователь с почтовым адресом ${email} уже существует`, [{msg: `Пользователь с почтовым адресом ${email} уже существует`,param: 'email',}])
         }
         // хешируем пароль
         const hashPassword = await bcrypt.hash(password, 3)

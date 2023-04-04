@@ -1,5 +1,5 @@
 <template>
-  <form class="col-12">
+  <form class="form">
     <h1 class="mb-4">Анкета заключения договора для ИП</h1>
     <div class="form-row">
       <div class="mb-3 col-12 col-md-6 pr-md-3 d-flex align-items-end">
