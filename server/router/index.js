@@ -18,19 +18,19 @@ router.get('/users', authMiddleware, userController.getUsers)
 
 // договора
 router.post('/dogovors/employed',
-    // body('fio').notEmpty().withMessage('Это поле не должно быть пустым'),
-    // body('inn').notEmpty().withMessage('Это поле не должно быть пустым'),
-    // body('birth').notEmpty().withMessage('Это поле не должно быть пустым'),
-    // body('phone').notEmpty().withMessage('Это поле не должно быть пустым'),
-    // body('email').notEmpty().withMessage('Это поле не должно быть пустым'),
-    // body('passnumber').notEmpty().withMessage('Это поле не должно быть пустым'),
-    // body('passdata').notEmpty().withMessage('Это поле не должно быть пустым'),
-    // body('passwho').notEmpty().withMessage('Это поле не должно быть пустым'),
-    // body('adres').notEmpty().withMessage('Это поле не должно быть пустым'),
-    // body('bank').notEmpty().withMessage('Это поле не должно быть пустым'),
-    // body('numberschet').notEmpty().withMessage('Это поле не должно быть пустым'),
-    // body('korschet').notEmpty().withMessage('Это поле не должно быть пустым'),
-    // body('bik').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('fio').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('inn').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('birth').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('phone').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('email').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('passnumber').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('passdata').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('passwho').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('adres').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('bank').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('numberschet').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('korschet').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('bik').notEmpty().withMessage('Это поле не должно быть пустым'),
     dogovorController.dogEmployed)
 
 module.exports = router
