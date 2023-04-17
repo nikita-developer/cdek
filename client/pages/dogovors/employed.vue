@@ -1,7 +1,7 @@
 <template>
-  <AlertSuccess v-if="success">Спасибо, ваша заявка принята! Мы свяжемся с вами в ближайшее время</AlertSuccess>
+  <AlertSuccess v-if="success">Заявка отправлена!</AlertSuccess>
   <form @submit.prevent="submit" class="form">
-    <h1 class="mb-4 form__title">Анкета заключения договора для cамозанятыx</h1>
+    <h1 class="mb-4">Анкета заключения договора для cамозанятыx</h1>
     <div class="form-row">
       <div class="mb-3 col-12 col-md-6 pr-md-3">
         <label class="w-100">
@@ -122,12 +122,14 @@
         </label>
       </div>
     </div>
+    <input type="hidden" v-model="robots">
     <button class="btn btn-primary" type="submit">Отправить</button>
   </form>
 </template>
 
-<script setup lang="ts">
+<script setup>
   import {errorsForm} from "../../utils/form";
+  const config = useRuntimeConfig();
 
   const fio = ref('')
   const inn = ref('')
@@ -144,79 +146,74 @@
   const korschet = ref('')
   const bik = ref('')
   const comment = ref('')
+  const robots = ref('')
 
   let errorsMessages = ref({})
   let success = ref(false)
 
-  const settings:any = {
-    method: 'POST',
-    credentials: "include",
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      fio: unref(fio),
-      inn: unref(inn),
-      birth: unref(birth),
-      phone: unref(phone),
-      email: unref(email),
-      passnumber: unref(passnumber),
-      passdata: unref(passdata),
-      passwho: unref(passwho),
-      adres: unref(adres),
-      site: unref(site),
-      bank: unref(bank),
-      numberschet: unref(numberschet),
-      korschet: unref(korschet),
-      bik: unref(bik),
-      comment: unref(comment),
-    })
-  }
-
   const submit = async () => {
-    if(!success.value) {
-      try {
-        const fetchResponse = await fetch('http://localhost:5000/api/dogovors/employed', settings)
-        const data = await fetchResponse.json();
-        if(fetchResponse.status === 200) {
-          errorsMessages.value = {}
-          fio.value = ''
-          inn.value = ''
-          birth.value = ''
-          phone.value = ''
-          email.value = ''
-          passnumber.value = ''
-          passdata.value = ''
-          passwho.value = ''
-          adres.value = ''
-          site.value = ''
-          bank.value = ''
-          numberschet.value = ''
-          korschet.value = ''
-          bik.value = ''
-          comment.value = ''
+    const settings = {
+      method: 'POST',
+      credentials: "include",
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        fio: unref(fio),
+        inn: unref(inn),
+        birth: unref(birth),
+        phone: unref(phone),
+        email: unref(email),
+        passnumber: unref(passnumber),
+        passdata: unref(passdata),
+        passwho: unref(passwho),
+        adres: unref(adres),
+        site: unref(site),
+        bank: unref(bank),
+        numberschet: unref(numberschet),
+        korschet: unref(korschet),
+        bik: unref(bik),
+        comment: unref(comment),
+        robots: unref(robots),
+      })
+    }
+    try {
+      const fetchResponse = await fetch(`${config.API_URL}api/dogovors/employed`, settings)
+      const data = await fetchResponse.json();
+      if(fetchResponse.status === 200) {
+        errorsMessages.value = {}
+        fio.value = ''
+        inn.value = ''
+        birth.value = ''
+        phone.value = ''
+        email.value = ''
+        passnumber.value = ''
+        passdata.value = ''
+        passwho.value = ''
+        adres.value = ''
+        site.value = ''
+        bank.value = ''
+        numberschet.value = ''
+        korschet.value = ''
+        bik.value = ''
+        comment.value = ''
+        comment.robots = ''
 
-          success.value = true
-          setTimeout(() => success.value = false, 3000)
-        } else {
-          errorsMessages.value = {}
-          errorsMessages.value = errorsForm(data.errors)
-        }
-      } catch (e) {
-        return e
+        success.value = true
+        setTimeout(() => {
+          success.value = false
+        }, 3000)
+      } else {
+        errorsMessages.value = {}
+        errorsMessages.value = errorsForm(data.errors)
       }
+    } catch (e) {
+      return e
     }
   }
 </script>
 
-<style scoped lang="scss">
-  label {
-    margin-bottom: 0;
-  }
-  .form__title {
-    @media (max-width: 768px) {
-      font-size: 1.5rem;
-    }
-  }
+<style scoped>
+
 </style>

@@ -33,4 +33,30 @@ router.post('/dogovors/employed',
     body('bik').notEmpty().withMessage('Это поле не должно быть пустым'),
     dogovorController.dogEmployed)
 
+router.post('/dogovors/ip',
+    body('fio').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('inn').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('yradres').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('faktadres').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('bik').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('raschet').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('directorfio').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('phone').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('email').notEmpty().withMessage('Это поле не должно быть пустым'),
+    dogovorController.dogIp)
+
+router.post('/dogovors/yr',
+    body('name').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('inn').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('faktadres').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('numbersvid').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('datasvid').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('bik').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('raschet').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('thisfio').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('directorfio').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('phone').notEmpty().withMessage('Это поле не должно быть пустым'),
+    body('email').notEmpty().withMessage('Это поле не должно быть пустым'),
+    dogovorController.dogYr)
+
 module.exports = router
