@@ -170,7 +170,7 @@ const submit = async () => {
     })
   }
   try {
-    const fetchResponse = await fetch(`${config.API_URL}api/dogovors/yr`, settings)
+    const fetchResponse = await fetch(`${config.API_URL}/dogovors/yr`, settings)
     const data = await fetchResponse.json();
     if(fetchResponse.status === 200) {
       errorsMessages.value = {}

@@ -9,6 +9,7 @@
 
 <script setup>
   const user = useUser().value
+  const config = useRuntimeConfig();
 
   const submit = async () => {
     const settings = {
@@ -23,7 +24,7 @@
       })
     }
     try {
-      const fetchResponse = await fetch(`http://localhost:5000/api/send-link-active`, settings)
+      const fetchResponse = await fetch(`${config.API_URL}/send-link-active`, settings)
       const data = await fetchResponse.json();
       console.log(data)
     } catch (e) {

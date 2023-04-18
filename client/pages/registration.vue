@@ -12,6 +12,7 @@
         <input v-model="password" type="text" class="form__field">
         <p class="form__message text-danger" v-if="errorsMessages.password"><small>{{errorsMessages.password}}</small></p>
       </label>
+      <input type="hidden" v-model="robots">
       <button class="form__btn btn" :disabled="!loadForm">Отправить</button>
       <NuxtLink class="form__link" to="/login">Войти</NuxtLink>
     </form>
@@ -20,9 +21,12 @@
 
 <script setup>
 import {errorsForm} from "../utils/form";
+const config = useRuntimeConfig();
 
 const email = ref('')
 const password = ref('')
+const robots = ref('')
+
 let errorsMessages = ref({})
 let loadForm = ref(true)
 
@@ -38,10 +42,11 @@ const submit = async () => {
       body: JSON.stringify({
         email: unref(email),
         password: unref(password),
+        robots: unref(robots),
       })
     }
     try {
-      const fetchResponse = await fetch('http://localhost:5000/api/registration', settings)
+      const fetchResponse = await fetch(`${config.API_URL}/registration`, settings)
       const data = await fetchResponse.json();
 
       console.log(fetchResponse.status, data)

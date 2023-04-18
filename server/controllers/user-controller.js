@@ -11,7 +11,13 @@ class UserController {
                 return next(ApiError.BadRequest('Ошибка при валидации', errors.array()))
             }
             // получаем email и password
-            const {email, password} = req.body
+            const {email, password, robots} = req.body
+
+            // проверка на роботов
+            if(robots !== '') {
+                return next(ApiError.BadRequest('Скрытое поле не пустое', [{msg: `Скрытое поле не пустое`, param: 'robots'}]))
+            }
+
             // вызывваем функцию и регистрируем пользователя
             const userData = await userService.registration(email, password)
             // записываем в куки

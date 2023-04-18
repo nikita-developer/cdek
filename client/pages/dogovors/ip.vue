@@ -160,7 +160,7 @@
       })
     }
     try {
-      const fetchResponse = await fetch(`${config.API_URL}api/dogovors/ip`, settings)
+      const fetchResponse = await fetch(`${config.API_URL}/dogovors/ip`, settings)
       const data = await fetchResponse.json();
       if(fetchResponse.status === 200) {
         errorsMessages.value = {}

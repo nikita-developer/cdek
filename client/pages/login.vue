@@ -20,6 +20,7 @@
 
 <script setup>
   import {errorsForm} from "../utils/form";
+  const config = useRuntimeConfig();
 
   const email = ref('')
   const password = ref('')
@@ -39,7 +40,7 @@
       })
     }
     try {
-      const fetchResponse = await fetch('http://localhost:5000/api/login', settings)
+      const fetchResponse = await fetch(`${config.API_URL}/login`, settings)
       const data = await fetchResponse.json();
       if(fetchResponse.status === 200) {
         isAuth().value = true

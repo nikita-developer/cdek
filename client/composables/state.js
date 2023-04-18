@@ -11,7 +11,7 @@ export const useRefresh = async () => {
         },
     }
     try {
-        const fetchResponse = await fetch('http://localhost:5000/api/refresh', settings)
+        const fetchResponse = await fetch(`http://localhost:5000/api/refresh`, settings)
         const data = await fetchResponse.json();
         if(fetchResponse.status === 200) {
             isAuth().value = true

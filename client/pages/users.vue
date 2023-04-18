@@ -9,6 +9,7 @@
 
 <script setup>
   let allUsers = ref(null)
+  const config = useRuntimeConfig();
 
   const submit = async () => {
     const settings = {
@@ -21,7 +22,7 @@
       },
     }
     try {
-      let fetchResponse = await fetch('http://localhost:5000/api/users', settings)
+      let fetchResponse = await fetch(`${config.API_URL}/users`, settings)
       if(fetchResponse.status === 401) {
         await useRefresh()
 
