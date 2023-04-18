@@ -5,5 +5,6 @@ export default defineNuxtConfig({
         public: {
             API_URL: process.env.API_URL || 'http://localhost:5000/',
         }
-    }
+    },
+    buildDir: 'http://spasdeveloper.ru/test'
 })
