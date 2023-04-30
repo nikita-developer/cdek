@@ -3,10 +3,10 @@ export default defineNuxtConfig({
     ssr: false,
     runtimeConfig: {
         public: {
-            API_URL: process.env.API_URL || 'http://localhost:5000/api',
+            API_URL: process.env.API_URL || 'http://185.197.34.216/api',
         }
     },
     app: {
-        "baseURL": "/test",
+        // "baseURL": "/test",
     },
 })
