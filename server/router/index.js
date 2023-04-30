@@ -57,6 +57,10 @@ router.post('/dogovors/yr',
     body('directorfio').notEmpty().withMessage('Это поле не должно быть пустым'),
     body('phone').notEmpty().withMessage('Это поле не должно быть пустым'),
     body('email').notEmpty().withMessage('Это поле не должно быть пустым'),
-    dogovorController.dogYr)
+    dogovorController.dogYr) 
+
+router.get('/cdek', (req, res) => {
+    res.json({messs: 'dffghdfrfhreikrjiorjtgiojfiudfifughdfighsiu'})
+})
 
 module.exports = router
