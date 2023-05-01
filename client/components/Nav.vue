@@ -34,6 +34,7 @@ let auth = isAuth()
 let isOpen = ref(false)
 
 const closeMenu = () => isOpen.value = false
+const config = useRuntimeConfig();
 
 const logout = async () => {
   const settings = {
@@ -45,7 +46,7 @@ const logout = async () => {
     }
   }
   try {
-    const fetchResponse = await fetch('http://localhost:5000/api/logout', settings)
+    const fetchResponse = await fetch(`${config.API_URL}/logout`, settings)
     const data = await fetchResponse.json();
     localStorage.removeItem('token')
     isAuth().value = false
