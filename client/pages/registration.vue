@@ -49,7 +49,6 @@ const submit = async () => {
       const fetchResponse = await fetch(`${config.API_URL}/registration`, settings)
       const data = await fetchResponse.json();
 
-      console.log(fetchResponse.status, data)
       if(fetchResponse.status === 200) {
         navigateTo('/login')
       }

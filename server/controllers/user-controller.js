@@ -21,7 +21,7 @@ class UserController {
             // вызывваем функцию и регистрируем пользователя
             const userData = await userService.registration(email, password)
             // записываем в куки
-            res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict', secure: false})
+            // res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict', secure: false})
             return res.json(userData)
         } catch (e) {
             next(e)
