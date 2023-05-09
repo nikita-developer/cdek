@@ -59,8 +59,8 @@ router.post('/dogovors/yr',
     body('email').notEmpty().withMessage('Это поле не должно быть пустым'),
     dogovorController.dogYr) 
 
-router.get('/cdek', (req, res) => {
-    res.json({messs: 'dffghdfrfhreikrjiorjtgiojfiudfifughdfighsiu'})
+router.post('/profile', (req, res) => {
+    res.json({messs: req.body})
 })
 
 module.exports = router
