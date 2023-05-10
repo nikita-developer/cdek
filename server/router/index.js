@@ -1,5 +1,6 @@
 const Router = require('express').Router
 const userController = require('../controllers/user-controller')
+const profileController = require('../controllers/profile-controller')
 const dogovorController = require('../controllers/dogovor-controller')
 const router = new Router()
 const {body} = require('express-validator')
@@ -57,10 +58,8 @@ router.post('/dogovors/yr',
     body('directorfio').notEmpty().withMessage('Это поле не должно быть пустым'),
     body('phone').notEmpty().withMessage('Это поле не должно быть пустым'),
     body('email').notEmpty().withMessage('Это поле не должно быть пустым'),
-    dogovorController.dogYr) 
+    dogovorController.dogYr)
 
-router.post('/profile', (req, res) => {
-    res.json({messs: req.body})
-})
+router.post('/profile', profileController.settings)
 
 module.exports = router
