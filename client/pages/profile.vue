@@ -165,6 +165,7 @@
       text: user.about,
       isEdits: false
     },
+    email: user.email,
     image: '',
   })
 
@@ -201,7 +202,7 @@
   }
 
   const upload = async (e) => {
-    if(e.target.files[0].size > 500000) {
+    if(e.target.files[0].size > 5000000) {
       return errorMessage.value = 'Картинка больше чем 5мб'
     } else {
       errorMessage.value = ''
