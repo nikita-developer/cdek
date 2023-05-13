@@ -202,13 +202,13 @@
   }
 
   const upload = async (e) => {
-    if(e.target.files[0].size > 5000000) {
-      return errorMessage.value = 'Картинка больше чем 5мб'
-    } else {
-      errorMessage.value = ''
-    }
-
     if(e.target.files[0]) {
+      if(e.target.files[0].size > 5000000) {
+          return errorMessage.value = 'Картинка больше чем 5мб'
+      } else {
+          errorMessage.value = ''
+      }
+
       const reader = new FileReader()
       reader.onload = () => {
         profile.value.image = reader.result
