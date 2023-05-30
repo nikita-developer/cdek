@@ -16,10 +16,12 @@ app.use(express.json())
 // работа с куками
 app.use(cookieParser())
 // cors
-app.use(cors({
-    credentials: true,
-    origin: process.env.CLIENT_URL
-}))
+app.use(
+    cors({
+        credentials: true,
+        origin: process.env.CLIENT_URL,
+    })
+)
 // роуты
 app.use('/api', router)
 // обработка ошибок
@@ -31,10 +33,12 @@ const start = async () => {
         // подключаемся к базу
         await mongoose.connect(process.env.DB_URL, {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
         })
         // стартуем сервер
-        app.listen(PORT, () => console.log(`Сервер запущен по адресу http://localhost:${PORT}`))
+        app.listen(PORT, () =>
+            console.log(`Сервер запущен по адресу http://localhost:${PORT}`)
+        )
     } catch (e) {
         console.log(e)
     }
