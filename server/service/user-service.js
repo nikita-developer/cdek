@@ -9,34 +9,46 @@ const ApiError = require('../exceptions/api-error')
 class UserService {
     async registration(email, password) {
         // поиск пользователя в базе
-        const candidate = await UserModel.findOne({email})
+        const candidate = await UserModel.findOne({ email })
         // проверка на существование в базе пользователя
-        if(candidate) {
-            throw ApiError.BadRequest(`Пользователь с почтовым адресом ${email} уже существует`, [{msg: `Пользователь с почтовым адресом ${email} уже существует`,param: 'email',}])
+        if (candidate) {
+            throw ApiError.BadRequest(
+                `Пользователь с почтовым адресом ${email} уже существует`,
+                [
+                    {
+                        msg: `Пользователь с почтовым адресом ${email} уже существует`,
+                        param: 'email',
+                    },
+                ]
+            )
         }
         // хешируем пароль
         const hashPassword = await bcrypt.hash(password, 3)
         // получаем рандомную строку для генерации ссылки активации аккаунта
         const activationLink = uuid.v4()
         // создаем пользователя
-        const user = await UserModel.create({email, password: hashPassword, activationLink})
+        const user = await UserModel.create({
+            email,
+            password: hashPassword,
+            activationLink,
+        })
         // отправляем письмо для активации
         // await mailService.sendActivationMail(email, `${process.env.API_URL}api/activate/${activationLink}`)
         // фильтруем объект и отдаем только те данные которые прописаны в dto
         const userDto = new UserDto(user)
         // генерируем токены
-        const tokens = tokenService.generateTokens({...userDto})
+        const tokens = tokenService.generateTokens({ ...userDto })
         // сохраняем токены в базу
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
 
-        return {...tokens, user: userDto}
+        return { ...tokens, user: userDto }
     }
 
     async sendLinkActive(email) {
         // поиск пользователя по ссылке
-        const user = await UserModel.findOne({email})
+        const user = await UserModel.findOne({ email })
         // проверка на существование пользователя
-        if(!user) {
+        if (!user) {
             throw ApiError.BadRequest('Пользователя нет в базе')
         }
         // получаем рандомную строку для генерации ссылки активации аккаунта
@@ -46,14 +58,17 @@ class UserService {
         // сохраняем пользователя
         await user.save()
         // отправляем письмо для активации
-        await mailService.sendActivationMail(email, `${process.env.API_URL}api/activate/${activationLink}`)
+        await mailService.sendActivationMail(
+            email,
+            `${process.env.API_URL}api/activate/${activationLink}`
+        )
     }
 
     async activate(activationLink) {
         // поиск пользователя по ссылке
-        const user = await UserModel.findOne({activationLink})
+        const user = await UserModel.findOne({ activationLink })
         // проверка на существование пользователя
-        if(!user) {
+        if (!user) {
             throw ApiError.BadRequest('Неккоректная ссылка активации')
         }
         // меняем состояние акккаунта
@@ -64,24 +79,34 @@ class UserService {
 
     async login(email, password) {
         // поиск пользователя в базу
-        const user = await UserModel.findOne({email})
+        const user = await UserModel.findOne({ email })
         // проверка на существования в базе пользователя
-        if(!user) {
-            throw ApiError.BadRequest(`Пользователь с почтовым адресом ${email} не найден`,[{param: 'login', msg: `Пользователь с почтовым адресом ${email} не найден`}])
+        if (!user) {
+            throw ApiError.BadRequest(
+                `Пользователь с почтовым адресом ${email} не найден`,
+                [
+                    {
+                        param: 'login',
+                        msg: `Пользователь с почтовым адресом ${email} не найден`,
+                    },
+                ]
+            )
         }
         // функция compare принимает пароль который ввели и хеширует его, затем вторым параметром передаем пароль с базы в хешированном виде и сравнивает их
         const isPassEquals = await bcrypt.compare(password, user.password)
         // если пароль не равны
-        if(!isPassEquals) {
-            throw ApiError.BadRequest('Неверный пароль', [{param: 'password', msg: 'Неверный пароль'}])
+        if (!isPassEquals) {
+            throw ApiError.BadRequest('Неверный пароль', [
+                { param: 'password', msg: 'Неверный пароль' },
+            ])
         }
         // фильтруем объект и отдаем только те данные которые прописаны в dto
         const userDto = new UserDto(user)
         // генерируем токены
-        const tokens = tokenService.generateTokens({...userDto})
+        const tokens = tokenService.generateTokens({ ...userDto })
         // сохраняем токены в базу
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
-        return {...tokens, user: userDto}
+        return { ...tokens, user: userDto }
     }
 
     async logout(refreshToken) {
@@ -92,7 +117,7 @@ class UserService {
 
     async refresh(refreshToken) {
         // проверяем есть ли токен
-        if(!refreshToken) {
+        if (!refreshToken) {
             throw ApiError.UnauthorizedError()
         }
         // вызываем функцию проверки токена
@@ -100,7 +125,7 @@ class UserService {
         // ищем токен в базе
         const tokenFromDb = await tokenService.findToken(refreshToken)
         // если токен протух или нет в базе
-        if(!userData || !tokenFromDb) {
+        if (!userData || !tokenFromDb) {
             throw ApiError.UnauthorizedError()
         }
         // достаем пользователя по id из базы
@@ -108,10 +133,10 @@ class UserService {
         // фильтруем объект и отдаем только те данные которые прописаны в dto
         const userDto = new UserDto(user)
         // генерируем токены
-        const tokens = tokenService.generateTokens({...userDto})
+        const tokens = tokenService.generateTokens({ ...userDto })
         // сохраняем токены в базу
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
-        return {...tokens, user: userDto}
+        return { ...tokens, user: userDto }
     }
 
     async getAllUsers() {

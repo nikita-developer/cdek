@@ -22,6 +22,7 @@ app.use(
         origin: process.env.CLIENT_URL,
     })
 )
+
 // роуты
 app.use('/api', router)
 // обработка ошибок

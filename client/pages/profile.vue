@@ -22,7 +22,7 @@
                 <li class="list-group-item profile__name">
                     <span class="list-group-item__first-text">Имя:</span>
                     <span v-if="!profile.name.isEdits">
-                        {{ user.name }}
+                        {{ profile.name.text }}
                     </span>
                     <input
                         v-if="profile.name.isEdits"
@@ -42,7 +42,7 @@
                 <li class="list-group-item profile__name">
                     <span class="list-group-item__first-text">Фамилия:</span>
                     <span v-if="!profile.surname.isEdits">
-                        {{ user.surname }}
+                        {{ profile.surname.text }}
                     </span>
                     <input
                         v-if="profile.surname.isEdits"
@@ -64,7 +64,7 @@
                 <li class="list-group-item profile__name">
                     <span class="list-group-item__first-text">Возраст:</span>
                     <span v-if="!profile.age.isEdits">
-                        {{ user.age }}
+                        {{ profile.age.text }}
                     </span>
                     <input
                         v-if="profile.age.isEdits"
@@ -88,7 +88,7 @@
                 <li class="list-group-item profile__name">
                     <span class="list-group-item__first-text">Телефон:</span>
                     <span v-if="!profile.phone.isEdits">
-                        {{ user.phone }}
+                        {{ profile.phone.text }}
                     </span>
                     <input
                         v-if="profile.phone.isEdits"
@@ -108,7 +108,7 @@
                 <li class="list-group-item profile__name">
                     <span class="list-group-item__first-text">Обо мне:</span>
                     <span v-if="!profile.about.isEdits">
-                        {{ user.about }}
+                        {{ profile.about.text }}
                     </span>
                     <textarea
                         v-if="profile.about.isEdits"
@@ -190,19 +190,16 @@ const submit = async () => {
     if (success) {
         success.value = false
 
-        formData.append('name', profile.value.name)
-        formData.append('surname', profile.value.surname)
-        formData.append('age', profile.value.age)
-        formData.append('phone', profile.value.phone)
-        formData.append('about', profile.value.about)
+        formData.append('name', profile.value.name.text)
+        formData.append('surname', profile.value.surname.text)
+        formData.append('age', profile.value.age.text)
+        formData.append('phone', profile.value.phone.text)
+        formData.append('about', profile.value.about.text)
         formData.append('email', profile.value.email)
 
         const settings = {
             method: 'POST',
             credentials: 'include',
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
             body: formData,
         }
         try {
@@ -218,6 +215,11 @@ const submit = async () => {
             return e
         }
         success.value = true
+        profile.value.name.isEdits = false
+        profile.value.surname.isEdits = false
+        profile.value.age.isEdits = false
+        profile.value.phone.isEdits = false
+        profile.value.about.isEdits = false
     }
 }
 

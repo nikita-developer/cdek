@@ -5,8 +5,8 @@ const dogovorController = require('../controllers/dogovor-controller')
 const router = new Router()
 const { body } = require('express-validator')
 const authMiddleware = require('../middleware/auth-middleware')
-const multer = require('multer')
-const upload = multer()
+
+const profileMiddleware = require('../middleware/profile-middleware')
 
 router.post(
     '/registration',
@@ -78,6 +78,10 @@ router.post(
     dogovorController.dogYr
 )
 
-router.post('/profile', upload.none(), profileController.settings)
+router.post(
+    '/profile',
+    profileMiddleware.single('image'),
+    profileController.settings
+)
 
 module.exports = router
