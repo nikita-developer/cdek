@@ -7,12 +7,11 @@ let uniqueName
 const storage = multer.diskStorage({
     // указываем в какую папку сохранять
     destination(req, file, cb) {
-        cb(null, 'uploads/profile')
+        cb(null, '../client/public/media/profile/')
     },
 
     // присваиваем имя
     filename(req, file, cb) {
-        console.log(file)
         uniqueName =
             'profile-' +
             Date.now() +

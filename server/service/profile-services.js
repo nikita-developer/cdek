@@ -2,17 +2,17 @@ const UserModel = require('../models/user-model')
 const UserDto = require('../dtos/user-dto')
 
 class ProfileServices {
-    async settings(profile) {
+    async settings(req) {
         // поиск пользователя в базе
-        const user = await UserModel.findOne({ email: profile.email })
+        const user = await UserModel.findOne({ email: req.body.email })
 
         // меняем данные пользователя
-        user.name = profile.name
-        user.surname = profile.surname
-        user.age = profile.age
-        user.phone = profile.phone
-        user.about = profile.about
-        user.image = profile.file
+        user.name = req.body.name
+        user.surname = req.body.surname
+        user.age = req.body.age
+        user.phone = req.body.phone
+        user.about = req.body.about
+        user.image = req.file.filename
 
         // сохраняем
         await user.save()

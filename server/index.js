@@ -13,6 +13,7 @@ const app = express()
 
 // учим базу работать с json
 app.use(express.json())
+
 // работа с куками
 app.use(cookieParser())
 // cors

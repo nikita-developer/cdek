@@ -180,7 +180,7 @@ const profile = ref({
     image: '',
 })
 
-const photo = ref(user.image)
+const photo = ref(`/media/profile/${user.image}`)
 let errorMessage = ref('')
 let success = ref(true)
 
