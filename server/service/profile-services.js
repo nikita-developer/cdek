@@ -12,7 +12,9 @@ class ProfileServices {
         user.age = req.body.age
         user.phone = req.body.phone
         user.about = req.body.about
-        user.image = req.file.filename
+        if (req.file) {
+            user.image = req.file.filename
+        }
 
         // сохраняем
         await user.save()

@@ -220,6 +220,13 @@ const submit = async () => {
         profile.value.age.isEdits = false
         profile.value.phone.isEdits = false
         profile.value.about.isEdits = false
+
+        formData.delete('name')
+        formData.delete('surname')
+        formData.delete('age')
+        formData.delete('phone')
+        formData.delete('about')
+        formData.delete('email')
     }
 }
 
@@ -230,6 +237,7 @@ const upload = async (e) => {
         } else {
             errorMessage.value = ''
         }
+        formData.delete('image')
 
         formData.append('image', e.target.files[0])
         const reader = new FileReader()

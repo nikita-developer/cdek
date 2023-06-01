@@ -1,13 +1,21 @@
 // парсинг через multer
 const multer = require('multer')
-const UserModel = require('../models/user-model')
+let fs = require('fs')
 
 let uniqueName
 
 const storage = multer.diskStorage({
     // указываем в какую папку сохранять
     destination(req, file, cb) {
-        cb(null, '../client/public/media/profile/')
+        // проверяем есть ли папка и создаем если нету
+        if (!fs.existsSync('../client/public/media/profile')) {
+            fs.mkdirSync(
+                '../client/public/media/profile',
+                { recursive: true },
+                () => {}
+            )
+        }
+        cb(null, '../client/public/media/profile')
     },
 
     // присваиваем имя
