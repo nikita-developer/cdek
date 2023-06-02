@@ -148,12 +148,14 @@
                 </li>
             </ul>
         </div>
+        <AlertSuccess v-if="messageSucces">Данные изменены!</AlertSuccess>
     </div>
 </template>
 
 <script setup>
 const config = useRuntimeConfig()
 let user = useUser().value
+let messageSucces = ref(false)
 
 const profile = ref({
     name: {
@@ -209,6 +211,8 @@ const submit = async () => {
             )
             const data = await fetchResponse.json()
             if (fetchResponse.status === 200) {
+                messageSucces.value = true
+                setTimeout(() => messageSucces.value = false, 1500)
                 console.log(data)
             }
         } catch (e) {
