@@ -1,14 +1,21 @@
 <template>
   <header class="header">
-    <div class="logo">Cdek</div>
+    <div class="user">
+      <div class="user__image">
+        <img :src="`/media/profile/${user.image}`">
+      </div>
+      <span class="user__name">{{ user.name }}</span>
+    </div>
     <Nav/>
   </header>
 </template>
 
 <script setup>
+let user = ref(useUser().value)
+user = computed(() => useUser().value)
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .header {
     display: flex;
     justify-content: space-between;
@@ -17,10 +24,30 @@
     background-color: var(--primary);
   }
 
-  .logo {
-    color: #ffffff;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-style: italic;
+  .user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__image {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 10px;
+
+      & img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &__name {
+      color: #fff;
+      font-weight: 400;
+      font-size: 18px;
+    }
   }
 </style>

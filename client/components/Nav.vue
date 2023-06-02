@@ -7,6 +7,9 @@
       <li class="nav-list__item">
         <NuxtLink active-class="active" class="nav-list__link" to="/">Главная</NuxtLink>
       </li>
+      <li class="nav-list__item">
+        <NuxtLink active-class="active" class="nav-list__link" to="/news">Новости</NuxtLink>
+      </li>
       <li class="nav-list__item" v-if="auth">
         <NuxtLink active-class="active" class="nav-list__link" to="/profile">Профиль</NuxtLink>
       </li>
@@ -166,6 +169,11 @@ const logout = async () => {
     border-radius: 5px;
     text-decoration: none;
     transition: .3s;
+
+    &.active {
+      background-color: #fff;
+      color: var(--primary);
+    }
 
     &:hover {
       background-color: #fff;
