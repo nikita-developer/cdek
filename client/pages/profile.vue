@@ -212,8 +212,8 @@ const submit = async () => {
             const data = await fetchResponse.json()
             if (fetchResponse.status === 200) {
                 messageSucces.value = true
+                await useRefresh()
                 setTimeout(() => messageSucces.value = false, 1500)
-                console.log(data)
             }
         } catch (e) {
             return e
