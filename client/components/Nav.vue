@@ -8,7 +8,7 @@
         <NuxtLink active-class="active" class="nav-list__link" to="/">Главная</NuxtLink>
       </li>
       <li class="nav-list__item">
-        <NuxtLink active-class="active" class="nav-list__link" to="/news">Новости</NuxtLink>
+        <NuxtLink active-class="active" class="nav-list__link" to="/posts">Посты</NuxtLink>
       </li>
       <li class="nav-list__item" v-if="auth">
         <NuxtLink active-class="active" class="nav-list__link" to="/profile">Профиль</NuxtLink>
