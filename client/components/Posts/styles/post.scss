@@ -1,0 +1,22 @@
+.post {
+    &__list {
+        display: flex;
+        flex-direction: column;
+        row-gap: 30px;
+    }
+
+    &__create {
+        margin-bottom: 15px;
+    }
+
+    &__create-btn {
+        border-bottom: 1px dashed #6c6c6c;
+        color: #6c6c6c;
+        font-style: italic;
+
+        &:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+    }
+}

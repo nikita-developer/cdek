@@ -101,3 +101,9 @@ label {
 legend {
   display: block;
 }
+
+input:focus,
+textarea:focus,
+button {
+  outline: none;
+}
