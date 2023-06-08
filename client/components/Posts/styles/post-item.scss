@@ -3,6 +3,12 @@
     background-color: #f3f3f3;
     padding: 30px;
     border: 1px solid #e0e0e0;
+
+    @media (max-width: 480px) {
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-bottom: 15px;
+    }
     
     &__title {
         font-size: 24px;
@@ -26,12 +32,26 @@
 
     &__author {
         & span {
+            line-height: 1.2;
+
+            @media (max-width: 480px) {
+                display: block;
+            }
+
             &:first-child {
                 font-size: 20px;
+
+                @media (max-width: 480px) {
+                    font-size: 16px;
+                }
             }
 
             &:last-child {
                 font-size: 14px;
+
+                @media (max-width: 480px) {
+                    font-size: 12px;
+                }
             }
         }
     }

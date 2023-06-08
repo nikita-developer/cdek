@@ -1,13 +1,13 @@
 <template>
 <div class="post-comments">
-    <div class="post-comments-add">
+    <div class="post-comments-add post-comments__add">
         <div class="post-comments-add__face"><img src="/media/profile/profile-1686042429395-273351095-404.png" alt=""></div>
         <div class="post-comments-add__description">
             <textarea class="post-comments-add__text"></textarea>
-            <div class="post-comments-add__footer">
-                <button class="post-comments-add__btn btn btn-light">Отмена</button>
-                <button class="post-comments-add__btn btn btn-primary">Оставить комментарий</button>
-            </div>
+        </div>
+        <div class="post-comments-add__footer">
+            <button class="post-comments-add__btn btn btn-light">Отмена</button>
+            <button class="post-comments-add__btn btn btn-primary">Оставить комментарий</button>
         </div>
     </div>
     <div class="post-comments__count">
