@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <div class="user">
+    <div class="user" v-if="isAuth().value">
       <div class="user__image">
         <img :src="`/media/profile/${user.image}`">
       </div>
