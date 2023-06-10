@@ -10,6 +10,7 @@
     </div>
     <div class="post-create__media">
         <button class="btn btn-primary">Добавить файл</button>
+        <button class="btn btn-primary">Создать</button>
         <input type="file" hidden>
     </div>
     <div class="post-create__img">

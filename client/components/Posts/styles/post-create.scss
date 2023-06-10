@@ -18,6 +18,11 @@
         padding: 10px 15px;
     }
 
+    &__media {
+        display: flex;
+        column-gap: 15px;
+    }
+
     &__img {
         position: relative;
         border-radius: 15px;
