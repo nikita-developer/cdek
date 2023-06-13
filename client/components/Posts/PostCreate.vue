@@ -9,14 +9,16 @@
         <textarea class="post-create__field" v-model="description"></textarea>
     </div>
     <div class="post-create__media">
-        <button class="btn btn-primary">Добавить файл</button>
+        <label class="btn btn-primary">
+            <input type="file" hidden @change="upload">
+            Добавить файл
+        </label>
         <button class="btn btn-primary" @click="submit">Создать</button>
-        <input type="file" hidden>
     </div>
-    <div class="post-create__img">
+    <label class="post-create__img">
         <div class="post-create__img-delete"></div>
-        <img src="/media/profile/profile-1686042429395-273351095-404.png" alt="">
-    </div>
+        <img :src="photo" alt="">
+    </label>
 </div>
 </template>
 
@@ -26,6 +28,9 @@ const config = useRuntimeConfig();
 const description = ref('')
 const media = ref('/media/profile/profile-1686042429395-273351095-404.png')
 const title = ref('')
+let photo = ref('/media/profile/profile-1686042429395-273351095-404.png')
+let errorMessage = ref('')
+let formData = new FormData()
 
 const submit = async () => {
     const data = {
@@ -52,6 +57,23 @@ const submit = async () => {
         console.log(res)
     } catch (e) {
         return e
+    }
+}
+
+const upload = async (e) => {
+    if (e.target.files[0]) {
+        console.log(12342453);
+        if (e.target.files[0].size > 5000000) {
+            return (errorMessage.value = 'Картинка больше чем 5мб')
+        } else {
+            errorMessage.value = ''
+        }
+        formData.delete('image')
+
+        formData.append('image', e.target.files[0])
+        const reader = new FileReader()
+        reader.onload = () => (photo.value = reader.result)
+        reader.readAsDataURL(e.target.files[0])
     }
 }
 </script>
