@@ -1,6 +1,7 @@
 const Router = require('express').Router
 const userController = require('../controllers/user-controller')
 const profileController = require('../controllers/profile-controller')
+const postController = require('../controllers/post-controller')
 const dogovorController = require('../controllers/dogovor-controller')
 const router = new Router()
 const { body } = require('express-validator')
@@ -22,6 +23,8 @@ router.get('/activate/:link', userController.activate)
 router.post('/send-link-active', userController.sendLinkActive)
 router.get('/refresh', userController.refresh)
 router.get('/users', authMiddleware, userController.getUsers)
+
+router.post('/posts', postController.createPost)
 
 // договора
 router.post(
