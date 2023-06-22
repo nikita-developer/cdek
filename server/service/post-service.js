@@ -20,7 +20,6 @@ const showTime = () => {
 class PostService {
     async createPost(req) {
         const post = await PostModel.create({
-            user: req.data.user,
             description: req.data.description,
             face: req.data.image,
             media: req.data.media,

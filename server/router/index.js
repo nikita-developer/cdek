@@ -8,6 +8,7 @@ const { body } = require('express-validator')
 const authMiddleware = require('../middleware/auth-middleware')
 
 const profileMiddleware = require('../middleware/profile-middleware')
+const postMiddleware = require('../middleware/post-middleware')
 
 router.post(
     '/registration',
@@ -23,8 +24,6 @@ router.get('/activate/:link', userController.activate)
 router.post('/send-link-active', userController.sendLinkActive)
 router.get('/refresh', userController.refresh)
 router.get('/users', authMiddleware, userController.getUsers)
-
-router.post('/posts', postController.createPost)
 
 // договора
 router.post(
@@ -81,10 +80,8 @@ router.post(
     dogovorController.dogYr
 )
 
-router.post(
-    '/profile',
-    profileMiddleware.single('image'),
-    profileController.settings
-)
+router.post('/profile', profileMiddleware.single('image'), profileController.settings)
+
+router.post('/posts', postMiddleware.single('media'), postController.createPost)
 
 module.exports = router
