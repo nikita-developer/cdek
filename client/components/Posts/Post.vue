@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-    const isOpenModal = ref(true)
+    const isOpenModal = ref(false)
 </script>
 
 <style lang="scss" scoped>
