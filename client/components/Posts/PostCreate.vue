@@ -9,7 +9,6 @@
         <textarea class="post-create__field" v-model="description"></textarea>
     </div>
     <div class="post-create__media">
-<<<<<<< HEAD
         <label class="post-create__label">
             <span class="btn btn-primary">Добавить файл</span>
             <input type="file" hidden @change="upload">
@@ -21,23 +20,10 @@
         <img :src="media" alt="">
     </div>
     <small class="text-danger" v-if="errorMessage">{{ errorMessage }}</small>
-=======
-        <label class="btn btn-primary">
-            <input type="file" hidden @change="upload">
-            Добавить файл
-        </label>
-        <button class="btn btn-primary" @click="submit">Создать</button>
-    </div>
-    <label class="post-create__img">
-        <div class="post-create__img-delete"></div>
-        <img :src="photo" alt="">
-    </label>
->>>>>>> 11a9e3fa745296efa5ebfcd0dd185c58db74d2e3
 </div>
 </template>
 
 <script setup>
-<<<<<<< HEAD
 let user = useUser().value
 let config = useRuntimeConfig();
 
@@ -50,16 +36,6 @@ let media = ref('')
 let success = ref(true)
 let messageSucces = ref(false)
 console.log(user);
-=======
-const user = useUser().value
-const config = useRuntimeConfig();
-const description = ref('')
-const media = ref('/media/profile/profile-1686042429395-273351095-404.png')
-const title = ref('')
-let photo = ref('/media/profile/profile-1686042429395-273351095-404.png')
-let errorMessage = ref('')
-let formData = new FormData()
->>>>>>> 11a9e3fa745296efa5ebfcd0dd185c58db74d2e3
 
 const submit = async () => {
     if(success) {
@@ -107,28 +83,9 @@ const upload = async (e) => {
         reader.readAsDataURL(e.target.files[0])
     }
 }
-
-<<<<<<< HEAD
 const deleted = () => {
     formData.delete('media')
     media.value = ''
-=======
-const upload = async (e) => {
-    if (e.target.files[0]) {
-        console.log(12342453);
-        if (e.target.files[0].size > 5000000) {
-            return (errorMessage.value = 'Картинка больше чем 5мб')
-        } else {
-            errorMessage.value = ''
-        }
-        formData.delete('image')
-
-        formData.append('image', e.target.files[0])
-        const reader = new FileReader()
-        reader.onload = () => (photo.value = reader.result)
-        reader.readAsDataURL(e.target.files[0])
-    }
->>>>>>> 11a9e3fa745296efa5ebfcd0dd185c58db74d2e3
 }
 </script>
 
