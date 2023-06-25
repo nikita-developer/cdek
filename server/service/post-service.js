@@ -19,17 +19,11 @@ const showTime = () => {
 
 class PostService {
     async createPost(req) {
-        const post = await PostModel.create({
-            description: req.data.description,
-            face: req.data.image,
-            media: req.data.media,
-            name: req.data.name,
-            surname: req.data.surname,
-            title: req.data.title,
-            date: showTime(),
-        })
+        // проверка на файл
+        if (req.file) req.body.media = req.file.filename
 
-        return post
+        // создаем пост
+        return await PostModel.create(req.body)
     }
 }
 

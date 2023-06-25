@@ -3,10 +3,12 @@
     <div class="post-create__item">
         <p class="post-create__placeholder">Заголовок поста</p>
         <input class="post-create__field" type="text" v-model="title">
+        <small class="text-danger mb-0" v-if="errorsMessages.title">{{ errorsMessages.title }}</small>
     </div>
     <div class="post-create__item">
         <p class="post-create__placeholder">Описание поста</p>
         <textarea class="post-create__field" v-model="description"></textarea>
+        <small class="text-danger mb-0" v-if="errorsMessages.description">{{ errorsMessages.description }}</small>
     </div>
     <div class="post-create__media">
         <label class="post-create__label">
@@ -24,6 +26,7 @@
 </template>
 
 <script setup>
+import {errorsForm} from "../../utils/form";
 let user = useUser().value
 let config = useRuntimeConfig();
 
@@ -34,13 +37,16 @@ let errorMessage = ref('')
 let formData = new FormData()
 let media = ref('')
 let success = ref(true)
-let messageSucces = ref(false)
-console.log(user);
+
+let errorsMessages = ref({})
+
+const emit = defineEmits(['closeCreate'])
 
 const submit = async () => {
     if(success) {
         success.value = false
 
+        formData.append('user', user.id)
         formData.append('description', unref(description))
         formData.append('face', user.image)
         formData.append('name', user.name)
@@ -56,14 +62,23 @@ const submit = async () => {
             const fetchResponse = await fetch(`${config.API_URL}/posts`, settings)
             const data = await fetchResponse.json()
             if (fetchResponse.status === 200) {
-                messageSucces.value = true
                 await useRefresh()
-                setTimeout(() => messageSucces.value = false, 1500)
+                // обнуляем
+                formData = new FormData()
+                errorsMessages.value = {}
+                title.value = ''
+                description.value = ''
+                emit('closeCreate', false)
+            } else {
+                errorsMessages.value = errorsForm(data.errors)
+                // обнуляем
+                formData = new FormData()
             }
         } catch (e) {
+            // обнуляем
+            formData = new FormData()
             return e
         }
-
         success.value = true
     }
 }

@@ -20,13 +20,7 @@ const storage = multer.diskStorage({
 
     // присваиваем имя
     filename(req, file, cb) {
-        uniqueName =
-            'posts-' +
-            Date.now() +
-            '-' +
-            Math.round(Math.random() * 1e9) +
-            '-' +
-            file.originalname
+        uniqueName ='posts-' + Date.now() + '-' + Math.round(Math.random() * 1e9) + '-' + file.originalname
         cb(null, uniqueName)
     },
 })

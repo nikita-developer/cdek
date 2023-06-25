@@ -183,7 +183,6 @@
         setTimeout(() => {
           success.value = false
         }, 3000)
-        console.log(data)
       } else {
         errorsMessages.value = {}
         errorsMessages.value = errorsForm(data.errors)

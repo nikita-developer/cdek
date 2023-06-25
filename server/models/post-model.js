@@ -25,7 +25,7 @@ const PostSchema = new Schema({
     surname: {type: String, default: 'Не указано'},
     title: {type: String, default: 'Не указано'},
     description: {type: String, default: 'Не указано'},
-    media: {type: String, default: 'Не указано'},
+    media: {type: String, default: ''},
     like: {type: Number, default: 0},
     dislike: {type: Number, default: 0},
 })

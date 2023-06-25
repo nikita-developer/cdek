@@ -6,14 +6,25 @@
     <div class="post__list">
         <Posts-PostItem></Posts-PostItem>
     </div>
-    <Modals-ModalDefault :show="isOpenModal" @close="isOpenModal = false">
-        <Posts-PostCreate></Posts-PostCreate>
+    <Modals-ModalDefault :show="isOpenModal" @close="close">
+        <Posts-PostCreate @closeCreate="close(), infoCreatePost()"></Posts-PostCreate>
     </Modals-ModalDefault>
+    
+    <transition name="fade">
+        <AlertSuccess v-if="messageSucces">Пост добавлен!</AlertSuccess>
+    </transition>
 </div>
 </template>
 
 <script setup>
     const isOpenModal = ref(false)
+    const close = () => isOpenModal.value = false
+
+    let messageSucces = ref(false)
+    const infoCreatePost = () => {
+        messageSucces.value = true
+        setTimeout(() => messageSucces.value = false, 1500)
+    }
 </script>
 
 <style lang="scss" scoped>
