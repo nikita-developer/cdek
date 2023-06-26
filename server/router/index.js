@@ -82,6 +82,7 @@ router.post(
 
 router.post('/profile', profileMiddleware.single('image'), profileController.settings)
 
-router.post('/posts', postMiddleware.single('media'), body('title').notEmpty().withMessage('Это поле не должно быть пустым'), postController.createPost)
+router.post('/posts', postMiddleware.single('media'), postController.createPost)
+router.get('/posts/getAll', postController.getPost)
 
 module.exports = router

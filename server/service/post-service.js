@@ -25,6 +25,11 @@ class PostService {
         // создаем пост
         return await PostModel.create(req.body)
     }
+
+    async getPost(req) {
+        // поиск постов
+        return await PostModel.find(req.body.user)
+    }
 }
 
 module.exports = new PostService()

@@ -17,6 +17,15 @@ class PostController {
             next(e)
         }
     }
+
+    async getPost(req, res, next) {
+        try {
+            const post = await postService.getPost(req)
+            return res.json(post)
+        } catch(e) {
+            next(e)
+        }
+    }
 }
 
 module.exports = new PostController()
